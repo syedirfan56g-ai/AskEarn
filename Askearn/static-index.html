@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AskEarn - Earn Coins by Answering Questions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #FFD600, #FFA000);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #FFD600;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: #FFD600;
+            outline: none;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: #333;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+        
+        .btn-google {
+            background: white;
+            color: #333;
+            border: 2px solid #eee;
+        }
+        
+        .btn-google:hover {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+        }
+        
+        .btn-admin {
+            background: #8e44ad;
+            color: white;
+        }
+        
+        .btn-admin:hover {
+            background: #6c3483;
+            transform: translateY(-2px);
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+            color: #999;
+        }
+        
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #eee;
+            z-index: 1;
+        }
+        
+        .divider span {
+            background: white;
+            position: relative;
+            z-index: 2;
+            padding: 0 15px;
+        }
+        
+        .error {
+            color: #e74c3c;
+            background: #ffeaea;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .success {
+            color: #27ae60;
+            background: #e8f7ef;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .feature {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .feature i {
+            font-size: 24px;
+            color: #FFA000;
+            margin-bottom: 10px;
+        }
+        
+        .feature h3 {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <i class="fas fa-coins" style="font-size: 50px; color: #333;"></i>
+        </div>
+        
+        <h1>AskEarn</h1>
+        <p>Earn real money by answering questions</p>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-question-circle"></i>
+                <h3>Ask Questions</h3>
+            </div>
+            <div class="feature">
+                <i class="fas fa-pen"></i>
+                <h3>Answer</h3>
+            </div>
+            <div class="feature">
+                <i class="fas fa-wallet"></i>
+                <h3>Get Paid</h3>
+            </div>
+        </div>
+        
+        <div id="error-message" class="error"></div>
+        <div id="success-message" class="success"></div>
+        
+        <!-- Signup Form -->
+        <div id="signup-section">
+            <h2>Create Account</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="••••••••" minlength="6" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+            
+            <button id="google-signup" class="btn btn-google">
+                <i class="fab fa-google"></i> Sign up with Google
+            </button>
+            
+            <p style="margin-top: 25px;">
+                Already have an account? <a href="#" id="show-login">Login</a>
+            </p>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="login-section" style="display: none;">
+            <h2>Login to Account</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+            
+            <button id="google-login" class="btn btn-google">
+                <i class="fab fa-google"></i> Sign in with Google
+            </button>
+            
+            <button id="admin-login" class="btn btn-admin">
+                <i class="fas fa-user-shield"></i> Admin Login
+            </button>
+            
+            <p style="margin-top: 25px;">
+                Don't have an account? <a href="#" id="show-signup">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="static-auth.js"></script>
+</body>
+</html>

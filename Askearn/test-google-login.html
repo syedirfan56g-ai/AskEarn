@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Google Login</title>
+</head>
+<body>
+    <h1>Test Google Login</h1>
+    <button id="google-login">Login with Google</button>
+    <div id="result"></div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBbwkpyzXzBEDZFmtx5t_NUEfQ60MMY1H4",
+          authDomain: "askearn-1fdf5.firebaseapp.com",
+          projectId: "askearn-1fdf5",
+          storageBucket: "askearn-1fdf5.firebasestorage.app",
+          messagingSenderId: "1061088918589",
+          appId: "1:1061088918589:web:f689fb068c2d56baf6be54",
+          measurementId: "G-14TH9JNLF3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('google-login').addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                document.getElementById('result').innerHTML = `<p>Success! Welcome ${user.email}</p>`;
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

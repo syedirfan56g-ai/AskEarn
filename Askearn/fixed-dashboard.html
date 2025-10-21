@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AskEarn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #FFD600, #FFA000);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #FFD600;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .welcome-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-logout {
+            background: #333;
+            color: white;
+        }
+        
+        .btn-logout:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: #333;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+        
+        .dashboard-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .user-email {
+            color: #FFA000;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #FFD600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .feature-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .error {
+            color: #e74c3c;
+            background: #ffeaea;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .coming-soon {
+            background: #e3f2fd;
+            border: 2px dashed #2196f3;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .coming-soon h2 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        
+        .coming-soon p {
+            color: #1565c0;
+            font-size: 18px;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .dashboard-content {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-coins" style="font-size: 24px; color: #333;"></i>
+                </div>
+                <div class="logo-text">AskEarn</div>
+            </div>
+            
+            <div class="user-info">
+                <div class="welcome-text">Welcome, <span id="user-email" class="user-email">user@example.com</span></div>
+                <button id="logout-btn" class="btn btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+        
+        <div class="dashboard-content">
+            <div id="loading" class="loading">
+                Loading dashboard...
+            </div>
+            
+            <div id="error-message" class="error"></div>
+            
+            <div id="dashboard-main" style="display: none;">
+                <h1>Dashboard</h1>
+                <p>You are successfully logged in!</p>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tasks" style="font-size: 24px; color: #333;"></i>
+                        </div>
+                        <h3 class="feature-title">Task System</h3>
+                        <p class="feature-desc">Complete tasks to earn coins</p>
+                        <a href="tasks.html" class="btn btn-primary" style="margin-top: 15px;">
+                            <i class="fas fa-play"></i> Start Tasks
+                        </a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-wallet" style="font-size: 24px; color: #333;"></i>
+                        </div>
+                        <h3 class="feature-title">Payment System</h3>
+                        <p class="feature-desc">Manage your earnings and withdrawals</p>
+                        <a href="payments.html" class="btn btn-primary" style="margin-top: 15px;">
+                            <i class="fas fa-money-bill-wave"></i> View Payments
+                        </a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-crown" style="font-size: 24px; color: #333;"></i>
+                        </div>
+                        <h3 class="feature-title">Admin Panel</h3>
+                        <p class="feature-desc">Manage the platform (Admin only)</p>
+                        <a href="admin.html" class="btn btn-primary" style="margin-top: 15px;">
+                            <i class="fas fa-user-shield"></i> Admin Dashboard
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="coming-soon">
+                    <h2><i class="fas fa-tools"></i> Under Development</h2>
+                    <p>The Task System, Payment System, and Admin Panel are currently being developed.</p>
+                    <p>They will be available soon!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="fixed-auth.js"></script>
+</body>
+</html>
